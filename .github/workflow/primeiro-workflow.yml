@@ -1,31 +1,28 @@
-# Nome do Workflow: Visível na aba "Actions" do GitHub
-name: 01 - Nosso Primeiro Workflow
+# Nome do Workflow
+name: Nosso Primeiro Workflow
 
-# Gatilho (Trigger): Define quando o workflow será executado.
+# Gatilho (Trigger):
 on:
-  # Executa em todo push para a branch 'main'
+  # A configuração 'on: push:' é a forma mais simples e abrangente de usar o gatilho de push.
+  # Sem filtros adicionais, este workflow será acionado sempre que um commit for enviado (`git push`)
+  # para QUALQUER branch do repositório.
+  # É um ótimo ponto de partida, mas em projetos reais, geralmente adicionamos filtros
+  # para controlar a execução, como veremos nos próximos exemplos.
   push:
     branches-ignore:
       - main
-  # Permite que o workflow seja executado manualmente a partir da interface do GitHu
-  workflow_dispatch:
 
-# Jobs: Um workflow é composto por um ou mais jobs, que rodam em paralelo por padrão.
+# Jobs que o workflow executará
 jobs:
-  # Nome do nosso primeiro job
-  meu-primeiro-job:
-    # Runner: Define a máquina virtual onde o job será executado. 'ubuntu-latest' é uma boa escolha padrão.
+  # Nome do job
+  log-push-info:
+    # Máquina virtual onde o job será executado
     runs-on: ubuntu-latest
 
-    # Steps: Uma sequência de tarefas que serão executadas no job.
+    # Passos (steps) que o job executará em sequência
     steps:
-      - name: Imprime uma mensagem de boas-vindas
-        run: echo "Iniciando meu primeiro job!"
-      - name: Mostra o diretório de trabalho
-        run: pwd
-      - name: Lista arquivos no runner
-        run: ls -la
-      - name: Exibe informações da branch
+      - name: Exibe informações do evento de push
         run: |
-          echo "Workflow acionado por um push na branch: ${{ github.ref_name }}"
-          echo "Este job só executa em 'main' ou em branches 'feature/**'."
+          echo "Este workflow foi acionado por um evento de 'push'."
+          echo "O commit foi enviado para a branch: ${{ github.ref }}"
+          echo "SHA do commit: ${{ github.sha }}"

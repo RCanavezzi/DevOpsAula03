@@ -9,7 +9,7 @@ on:
       paths:
       - '**.md'  # Executa se qualquer arquivo com a extensão .md for alterado em qualquer lugar do repositório.
   
-  # Permite que o workflow seja executado manualmente a partir da interface do GitHub
+  # Permite que o workflow seja executado manualmente a partir da interface do GitHu
   workflow_dispatch:
 
 # Jobs: Um workflow é composto por um ou mais jobs, que rodam em paralelo por padrão.

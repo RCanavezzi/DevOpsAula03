@@ -6,6 +6,8 @@ on:
   # Executa em todo push para a branch 'main'
   push:
     branches: [ "main" ]
+      paths:
+      - '**.md'  # Executa se qualquer arquivo com a extensão .md for alterado em qualquer lugar do repositório.
   
   # Permite que o workflow seja executado manualmente a partir da interface do GitHub
   workflow_dispatch:
@@ -25,3 +27,7 @@ jobs:
         run: pwd
       - name: Lista arquivos no runner
         run: ls -la
+      - name: Exibe informações da branch
+        run: |
+          echo "Workflow acionado por um push na branch: ${{ github.ref_name }}"
+          echo "Este job só executa em 'main' ou em branches 'feature/**'."
